@@ -24,13 +24,13 @@ function MenuPlatforms(){
         <Menu>
 
             <Link href="/play-Station">
-                <Menu.Item as ="a">PlayStation 5</Menu.Item>
+                <Menu.Item as ="a">GayStation 5</Menu.Item>
             </Link>
             <Link href="/xbox">
-                <Menu.Item as ="a">Xbox</Menu.Item>
+                <Menu.Item as ="a">Xbox Guan</Menu.Item>
             </Link>
             <Link href="/switch">
-                <Menu.Item as ="a">Switch</Menu.Item>
+                <Menu.Item as ="a">Nientiendo Switch</Menu.Item>
             </Link>
         </Menu>
     )
