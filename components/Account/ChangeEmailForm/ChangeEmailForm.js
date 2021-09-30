@@ -46,7 +46,7 @@ export default function ChangeEmailForm(props) {
                         error={formik.errors.repeatEmail}
                     />
                 </Form.Group>
-                <Button className="submit" loading ={loading}>Actualizar</Button>
+                <Button type="submit" className="submit" loading ={loading}>Actualizar</Button>
             </Form>
         </div>
     )
