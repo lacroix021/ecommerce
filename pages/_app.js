@@ -18,8 +18,8 @@ export default function MyApp({ Component, pageProps }) {
     if(token){
       setAuth({
         token,
-        idUser: jwtDecode(token).id
-      })
+        idUser: jwtDecode(token).id,
+      });
     }else{
       setAuth(null);
     }
@@ -29,8 +29,8 @@ export default function MyApp({ Component, pageProps }) {
     setToken(token);
       setAuth({
         token,
-        idUser: jwtDecode(token).id
-      })
+        idUser: jwtDecode(token).id,
+      });
   };
 
   const logout = ()=>{
@@ -39,10 +39,7 @@ export default function MyApp({ Component, pageProps }) {
       setAuth(null);
       router.push("/");
     }
-  }
-
-
-
+  };
 
   const authData = useMemo(
     () => ({
