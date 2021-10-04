@@ -3,20 +3,24 @@ import {Form, Button} from "semantic-ui-react";
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import useAuth from "../../../hooks/useAuth";
-import {createAddressApi} from "../../../api/address";
+import {createAddressApi, updateAddressApi} from "../../../api/address";
 import {toast} from "react-toastify";
 
+
 export default function AddressForm(props) {
-    const { setShowModal, setReloadAddresses } = props;
+    const { setShowModal, setReloadAddresses, newAddress, address } = props;
     const [loading, setLoading] = useState(false);
     const {auth, logout} = useAuth();
 
     const formik = useFormik({
-        initialValues: initialValues(),
+        initialValues: initialValues(address),
         validationSchema: Yup.object(validationSchema()),
         onSubmit: (formData) =>{
-            createAddress(formData);
-            //console.log(formData);
+            //condicional abreviado
+            newAddress 
+            ? createAddress(formData) 
+            : updateAddress(formData);
+            
         },
     });
 
@@ -43,6 +47,26 @@ export default function AddressForm(props) {
         }
         
         setLoading(false);
+    }
+
+    const updateAddress = (formData) =>{
+        setLoading(true);
+        const formDataTemp = {
+            ...formData,
+            user: auth.idUser,
+        };
+        const response = updateAddressApi(address._id, formDataTemp, logout);
+
+        if(!response){
+            toast.warning("Error al actualizar la direccion");
+            setLoading(false);
+        }else {
+            toast.success("Direccion Actualizada");
+            formik.resetForm();
+            setReloadAddresses(true);
+            setLoading(false);
+            setShowModal(false);
+        }
     }
 
     return (
@@ -119,22 +143,22 @@ export default function AddressForm(props) {
             </Form.Group>
             <div className="actions">
                 <Button className="submit" type="submit" loading={loading}>
-                    Crear Direccion
+                    {newAddress ? "Crear Direccion" : "Actualizar Direccion"}
                 </Button>
             </div>
         </Form>
     )
 }
 
-function initialValues() {
+function initialValues(address) {
     return{
-        title: "",
-        name: "",
-        address: "",
-        city: "",
-        state: "",
-        postalCode: "",
-        phone: ""
+        title: address?.title || "",
+        name: address?.name || "",
+        address: address?.address || "",
+        city: address?.city || "",
+        state: address?.state || "",
+        postalCode: address?.postalCode || "",
+        phone: address?.phone || ""
     };    
 }
  function validationSchema() {
