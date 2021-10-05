@@ -1,12 +1,15 @@
 import React, { useState, useEffect} from "react";
-import {Container, Menu, Grid, Icon, Label, Button} from "semantic-ui-react";
+import {Container, Menu, Grid, Icon} from "semantic-ui-react";
 import Link from "next/link";
+import {map} from "lodash";
 import BasicModal from "../../Modal/BasicModal/BasicModal";
 import Auth from "../../Auth";
 import useAuth from "../../../hooks/useAuth";
 import {getMeApi} from "../../../api/user";
+import { getPlatformsApi } from "../../../api/platform";
 
 export default function MenuWeb() {
+    const [platforms, setPlatforms] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [titleModal, setTitleModal] = useState("Inicia Sesion");
     const [user, setUser] = useState(undefined);
@@ -16,8 +19,17 @@ export default function MenuWeb() {
         (async () =>{
             const response = await getMeApi(logout);
             setUser(response);
-        })()
-    }, [auth])
+        })();
+    }, [auth]);
+
+
+    useEffect(() => {
+        (async () => {
+            const response = await getPlatformsApi();
+            setPlatforms(response || []);
+            //console.log(response);
+        })();
+    }, []);
 
     const onShowModal = () => setShowModal(true);
 
@@ -28,7 +40,7 @@ export default function MenuWeb() {
             <Container>
                 <Grid>
                     <Grid.Column className = "menu__left" width ={6}>
-                        <MenuPlatforms/>
+                        <MenuPlatforms platforms={platforms}/>
                         
                     </Grid.Column>
                     <Grid.Column className="menu__right" width ={10}>
@@ -55,21 +67,20 @@ export default function MenuWeb() {
 }
 
 
-function MenuPlatforms(){
+function MenuPlatforms(props){
+    const { platforms } = props;
+
     return(
         <Menu>
-
-            <Link href="/play-Station">
-                <Menu.Item as ="a">GayStation 5</Menu.Item>
-            </Link>
-            <Link href="/xbox">
-                <Menu.Item as ="a">Xbox Guan</Menu.Item>
-            </Link>
-            <Link href="/switch">
-                <Menu.Item as ="a">Nientiendo Switch</Menu.Item>
-            </Link>
+            {map(platforms, (platform) => (
+                <Link href={`/games/${platform.url}`} key={platform._id}>
+                    <Menu.Item as ="a" name ={platform.url}>
+                        {platform.title}
+                    </Menu.Item>
+                </Link>
+            ))}
         </Menu>
-    )
+    );
 }
 
 function MenuOptions(props){
