@@ -1,14 +1,28 @@
 import React, {useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import BasicLayout from '../layouts/BasicLayout';
+import { getGameByUrlApi } from "../api/game";
+import HeaderGame from '../components/Game/HeaderGame';
+import TabsGame from "../components/Game/TabsGame"
 
 export default function Game() {
+    const [game, setGame] = useState(null);
     const {query} = useRouter();
     
-    //aqui voy capitulo 104
+    
+    useEffect(() => {
+        (async () => {
+            const response = await getGameByUrlApi(query.game);
+            setGame(response);
+        })()
+    }, [query])
+
+    if(!game) return null;
+
     return (
         <BasicLayout className="game">
-            <h1>Estamos en GAME: {query.game}</h1>
+            <HeaderGame game={game}/>
+            <TabsGame game={game}/>
         </BasicLayout>
     )
 }
