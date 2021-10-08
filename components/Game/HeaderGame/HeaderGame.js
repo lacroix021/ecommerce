@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Grid, Image, Icon, Button} from "semantic-ui-react";
 import {size} from "lodash";
+import classNames from "classnames";
+import useAuth from "../../../hooks/useAuth";
+import {isFavoriteApi, addFavoriteApi, deleteFavoriteApi} from "../../../api/favorite";
 
 export default function HeaderGame(props) {
     const {game} = props;
@@ -25,11 +28,46 @@ function InfoGame(props){
     const {game} = props;
     const {title, summary, price, discount} = game;
 
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [reloadFavorites, setReloadFavorites] = useState(false);
+    const {auth, logout} = useAuth();
+
+    useEffect(() => {
+        (async () =>{
+            const response = await isFavoriteApi(auth.idUser, game.id, logout);
+            if(size(response) > 0) setIsFavorite(true);
+            else setIsFavorite(false);
+        })();
+        setReloadFavorites(false);
+    }, [game, reloadFavorites]);
+
+
+    const addFavorite = async () => {
+        if(auth){
+            await addFavoriteApi(auth.idUser, game.id, logout);
+            setReloadFavorites(true);
+        }
+    };
+
+    const deleteFavorite = async () => {
+        if(auth){
+            await deleteFavoriteApi(auth.idUser, game.id, logout);
+            setReloadFavorites(true);
+        }
+    };
+
     return(
         <>
             <div className="header-game__title">
                 {title}
-                <Icon name="heart outline" link/>
+                <Icon 
+                    name={isFavorite? "heart" : "heart outline"} 
+                    className={classNames({
+                        like: isFavorite
+                    })} 
+                    link
+                    onClick={isFavorite ? deleteFavorite : addFavorite}
+                />
             </div>
             <div className="header-game__delivery">Entrega en 24/48h</div>
             <div 
@@ -42,7 +80,8 @@ function InfoGame(props){
                     <p>Precio de venta al publico: {price} $</p>
                     <div className="header-game__buy-price-actions">
                         <p>-{discount} %</p>
-                        <p>{price - Math.floor(price*discount) / 100} $</p>
+                        {/* se añade la funcion .toFixed(2) para que en el calculo nos de 2 decimales nada mas*/}
+                        <p>{(price - Math.floor(price*discount) / 100).toFixed(2)} $</p>
                     </div>
                 </div>
                 <Button className="header-game__buy-btn">Comprar</Button>
