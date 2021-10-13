@@ -6,9 +6,12 @@ import {getFavoriteApi} from "../api/favorite";
 import useAuth from "../hooks/useAuth";
 import ListGames from "../components/ListGames";
 
+
 export default function wishlist() {
     const [games, setGames] = useState(null);
     const {auth, logout} = useAuth();
+
+
 
     useEffect(() => {
         (async () => {
