@@ -14,6 +14,8 @@ export default function FormPayment(props) {
     const stripe = useStripe();
     const elements = useElements();
     const {auth, logout} = useAuth();
+    const {removeAllProductsCart} = useCart();
+    const router = useRouter();
 
 
     const handleSubmit = async (event) =>{
@@ -38,6 +40,8 @@ export default function FormPayment(props) {
 
             if(size(response) > 0){
                 toast.success("Pedido Completado")
+                removeAllProductsCart();
+                router.push("/orders");
             }else{
                 toast.error("Error al realizar el pedido");
             }
