@@ -8,7 +8,7 @@ import ListGames from "../components/ListGames";
 import Seo from '../components/Seo';
 
 
-export default function wishlist() {
+export default function Wishlist() {
     const [games, setGames] = useState(null);
     const {auth, logout} = useAuth();
 

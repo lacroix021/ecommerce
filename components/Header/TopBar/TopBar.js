@@ -36,7 +36,7 @@ function Logo(){
 function Search(){
     //para definir campos sin valor es mejor definirlos asi 
     //en el estado ya que de lo contrario da error warning ({value: ''})
-    const [searchStr, setSearchStr] = useState({value: ''});
+    const [searchStr, setSearchStr] = useState("");
     const router = useRouter();
     const [load, setLoad] = useState(false);
 
