@@ -5,6 +5,7 @@ import BasicLayout from "../layouts/BasicLayout";
 import {getFavoriteApi} from "../api/favorite";
 import useAuth from "../hooks/useAuth";
 import ListGames from "../components/ListGames";
+import Seo from '../components/Seo';
 
 
 export default function wishlist() {
@@ -30,6 +31,7 @@ export default function wishlist() {
 
     return (
         <BasicLayout className="wishlist">
+            <Seo title="Mis Favoritos"/>
             <div className="wishlist__block">
                 <div className="title">Lista de deseos</div>
 

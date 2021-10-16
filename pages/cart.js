@@ -5,6 +5,7 @@ import useCart from "../hooks/useCart";
 import SummaryCart from '../components/Cart/SummaryCart/SummaryCart';
 import AddressShipping from "../components/Cart/AddressShipping";
 import Payment from "../components/Cart/Payment";
+import Seo from '../components/Seo';
 
 export default function Cart() {
     const {getProductsCart} = useCart();
@@ -17,6 +18,7 @@ export default function Cart() {
 function EmptyCart(){
     return(
         <BasicLayout className="empty-cart">
+            <Seo title="Mi Carrito de Compras"/>
             <h2>No hay productos en el carrito</h2>
         </BasicLayout>
     );

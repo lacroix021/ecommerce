@@ -23,12 +23,13 @@ export default function ListGames(props) {
                  return 1;
         }
     };
-    //se añadio el valor i de "game" el cuales el valor de key, cada elemento tiene una key
-    //unica y si no se especifica, la consola empieza a dar warnings
+    
     return (
         <div className="list-games">
             <Grid>
                 <Grid.Row columns ={getColumnsRender()}>
+                    {/*se añadio el valor i de "game" el cuales el valor de key, cada elemento tiene una key
+                     unica y si no se especifica, la consola empieza a dar warnings */}
                     {map(games, (game, i)=>(
                         <Game game={game} key={i}/>
                     ))}
