@@ -5,6 +5,7 @@
   .ui.grid {
     margin: 0;
     padding: 0;
+
     .column {
       padding: 0;
     }
@@ -35,21 +36,31 @@
 
     .ui.input {
       align-items: center;
-      margin-right: 25px;
+      margin-right: 8px;
 
       input {
+        align-items: stretch;
         background-color: transparent !important;
         border: 0;
-        border-bottom: 2px solid $primary !important;
+        border-bottom: 1px solid $font-light !important;
         border-radius: 0;
         color: $primary !important;
         padding: 5px 0;
-        width: 220px;
+        width: 100px;
         font-size: 20px;
         transition: width 0.7s;
 
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+
+        flex-direction: row;
+        flex-wrap: wrap-reverse;
+        justify-content: space-between;
+
         &:focus {
-          width: 350px;
+          width: 150px;
+          border-bottom: 1px solid $primary !important;
         }
       }
       i {
@@ -57,6 +68,19 @@
         opacity: 1 !important;
         font-size: 25px;
         right: -50px !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 520px) {
+  .top-bar__right {
+    .ui.input {
+      input {
+        width: 200px;
+        &:focus {
+          width: 300px;
+        }
       }
     }
   }

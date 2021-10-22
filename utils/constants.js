@@ -1,5 +1,6 @@
 //dejo comentareado el path local con el que se trabajo la conexion con la DB local
 //export const BASE_PATH = "http://localhost:1337";
+//link de repo en heroku   https://ecommerce-games-test.herokuapp.com
 export const BASE_PATH = "https://ecommerce-games-test.herokuapp.com";
 export const TOKEN = "token";
 export const CART = "cart";

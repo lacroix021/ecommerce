@@ -7,6 +7,7 @@ import {breakPointUpSm, breakPointUpMd, breakPointUpLg} from "../../utils/breakP
 
 
 export default function ListGames(props) {
+    //console.log(props); //para saber el contenido de props con que vienen los juegos listados
     const {games} = props;
     const {width} = useWindowSize();
     

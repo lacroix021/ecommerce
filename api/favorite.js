@@ -5,7 +5,7 @@ import {size} from "lodash";
 
 export async function isFavoriteApi(idUser, idGame, logout){
     try {
-        const url = `${BASE_PATH}/favorites?user=${idUser}&game=${idGame}`;
+        const url = `${BASE_PATH}/favorites?=${idUser}&game=${idGame}`;
         return await authFetch(url, null, logout);
     } catch (error) {
         console.log(error);
@@ -58,7 +58,7 @@ export async function deleteFavoriteApi(idUser, idGame, logout){
 
 export async function getFavoriteApi(idUser, logout){
     try {
-        const url =`${BASE_PATH}/favorites?=${idUser}`;
+        const url =`${BASE_PATH}/favorites?user=${idUser}`;
         const result = await authFetch(url, null, logout);
         return result;
     } catch (error) {

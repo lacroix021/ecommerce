@@ -2,7 +2,11 @@
   &__game {
     padding: 15px;
     &:hover {
+      background-color: $primary;
       opacity: 0.9;
+      h2 {
+        color: $font-light;
+      }
     }
     img {
       width: 100%;

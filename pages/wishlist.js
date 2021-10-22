@@ -11,12 +11,11 @@ import Seo from '../components/Seo';
 export default function Wishlist() {
     const [games, setGames] = useState(null);
     const {auth, logout} = useAuth();
-
-
-
+    
     useEffect(() => {
         (async () => {
             const response = await getFavoriteApi(auth.idUser, logout);
+            //console.log(response);
             if(size(response) > 0){
                 const gamesList = [];
                 forEach(response, (data)=>{

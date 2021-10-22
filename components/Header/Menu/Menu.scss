@@ -1,22 +1,33 @@
 .menu {
   background-color: $background-grey-dark;
   border-radius: 0;
+  height: auto;
 
   .ui.grid {
     margin: 0;
   }
 
-  &__left,
-  &__right {
+  &__right,
+  &__left {
     padding: 0 !important;
     display: flex !important;
-    align-items: center;
 
     .ui.menu {
       border: 0;
       box-shadow: none;
-      height: 100%;
+      height: auto;
+      width: auto;
       background: transparent;
+
+      //se agregan estos display y el flexdirection y flexwrap para ordenar el menu en dispositivos moviles
+      //wrap reverse para que el logout quede arriba
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+
+      flex-direction: row;
+      flex-wrap: wrap-reverse;
+      //justify-content: space-between;
 
       .icon {
         margin-right: 10px !important;
@@ -26,6 +37,8 @@
       .item {
         color: $font-light;
         border-radius: 0 !important;
+        width: auto;
+        padding: 10px;
 
         &:hover {
           color: $font-light;
@@ -40,6 +53,11 @@
         }
       }
     }
+  }
+
+  &__left {
+    display: flex;
+    justify-content: flex-start;
   }
 
   &__right {

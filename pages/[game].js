@@ -9,7 +9,7 @@ import Seo from '../components/Seo';
 export default function Game() {
     const [game, setGame] = useState(null);
     const {query} = useRouter();
-    
+    //poner los datos del query en un objeto que no se borre al actualizar
     
     useEffect(() => {
         (async () => {

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Grid, Image, Icon, Button} from "semantic-ui-react";
+import {Grid, Image, Icon, Button, GridColumn} from "semantic-ui-react";
 import {size} from "lodash";
 import classNames from "classnames";
 import useAuth from "../../../hooks/useAuth";
@@ -10,6 +10,7 @@ import {
         addFavoriteApi, 
         deleteFavoriteApi
     } from "../../../api/favorite";
+import { toast } from 'react-toastify';
 
 export default function HeaderGame(props) {
     const {game} = props;
@@ -33,17 +34,23 @@ export default function HeaderGame(props) {
 function Info(props){
     const {game} = props;
     const {title, summary, price, discount, url} = game;
-
+    
     const [isFavorite, setIsFavorite] = useState(false);
     const [reloadFavorites, setReloadFavorites] = useState(false);
     const {auth, logout} = useAuth();
     const {addProductCart} = useCart();
 
+    
+
     useEffect(() => {
         (async () =>{
-            const response = await isFavoriteApi(auth.idUser, game.id, logout);
-            if(size(response) > 0) setIsFavorite(true);
-            else setIsFavorite(false);
+            if(auth){
+                const response = await isFavoriteApi(auth.idUser, game.id, logout);
+                if(size(response) > 0) setIsFavorite(true);
+                else setIsFavorite(false);
+            }else{
+                return null;
+            }
         })();
         setReloadFavorites(false);
     }, [game, reloadFavorites]);
@@ -53,6 +60,9 @@ function Info(props){
         if(auth){
             await addFavoriteApi(auth.idUser, game.id, logout);
             setReloadFavorites(true);
+        }
+        else{
+            toast.warning("Debes estar registrado para añadirlo a tus favoritos");
         }
     };
 
@@ -67,14 +77,16 @@ function Info(props){
         <>
             <div className="header-game__title">
                 {title}
-                <Icon 
+                {auth ? <Icon 
                     name={isFavorite? "heart" : "heart outline"} 
                     className={classNames({
                         like: isFavorite
                     })} 
                     link
                     onClick={isFavorite ? deleteFavorite : addFavorite}
-                />
+                />: null}
+                
+                
             </div>
             <div className="header-game__delivery">Entrega en 24/48h</div>
             <div 
@@ -84,11 +96,13 @@ function Info(props){
             />
             <div className="header-game__buy">
                 <div className="header-game__buy-price">
-                    <p>Precio de venta al publico: {price} $</p>
+                    {discount === 0 ? null : <p>Precio de venta sin descuento: {price} $</p>}
+                    
                     <div className="header-game__buy-price-actions">
-                        <p>-{discount} %</p>
+                        {discount === 0 ? null: <p>-{discount} %</p>}
+                        
                         {/* se añade la funcion .toFixed(2) para que en el calculo nos de 2 decimales nada mas*/}
-                        <p>{(price - Math.floor(price*discount) / 100).toFixed(2)} $</p>
+                        <p>{(price - Math.floor(price*discount) / 100).toFixed(1)} $</p>
                     </div>
                 </div>
                 <Button 

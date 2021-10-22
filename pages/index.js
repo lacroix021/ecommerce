@@ -3,7 +3,7 @@ import {Loader} from "semantic-ui-react";
 import {size} from "lodash";
 import BasicLayout from "../layouts/BasicLayout/BasicLayout";
 import {getLastGamesApi} from "../api/game";
-import ListGames from "../components/ListGames/ListGames";
+import ListGames from "../components/ListGames";
 import Seo from "../components/Seo";
 
 export default function Home() {

@@ -40,11 +40,11 @@ export default function MenuWeb() {
         <div className="menu">
             <Container>
                 <Grid>
-                    <Grid.Column className = "menu__left" width ={6}>
+                    <Grid.Column className = "menu__left" width={6}>
                         <MenuPlatforms platforms={platforms}/>
                         
                     </Grid.Column>
-                    <Grid.Column className="menu__right" width ={10}>
+                    <Grid.Column className="menu__right" width={10}>
                         {user !== undefined && (
                             <MenuOptions 
                                 onShowModal={onShowModal} 

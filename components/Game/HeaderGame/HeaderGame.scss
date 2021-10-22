@@ -74,7 +74,7 @@
           }
 
           &:last-of-type {
-            font-size: 40px;
+            font-size: 30px;
             color: $primary;
           }
         }
@@ -83,7 +83,7 @@
 
     &-btn.ui.button {
       position: relative;
-      width: 200px;
+      width: 130px;
       background-color: $primary !important;
       font-size: 18px;
       padding: 19px 0;
