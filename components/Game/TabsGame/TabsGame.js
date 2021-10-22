@@ -2,7 +2,8 @@ import React from 'react';
 import {Tab} from "semantic-ui-react";
 import InfoGame from '../InfoGame';
 
-const TabsGame(props) {
+export default function TabsGame(props) {
+    
     const {game} = props;
     //creacion de pestañas dentro del juego
     const panes = [
@@ -20,8 +21,5 @@ const TabsGame(props) {
     return (
         <Tab className ="tabs-game" panes={panes} />
         )
-    }
+    };
     
-    TabsGame.displayName = "TabsGame";
-
-    export default TabsGame;
