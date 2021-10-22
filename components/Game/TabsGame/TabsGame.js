@@ -1,6 +1,6 @@
 import React from 'react';
 import {Tab} from "semantic-ui-react";
-import InfoGame from '../InfoGame/InfoGame';
+import InfoGame from '../InfoGame';
 
 export default function TabsGame(props) {
     const {game} = props;
@@ -16,7 +16,8 @@ export default function TabsGame(props) {
         },
     ];
 
-
+    TabsGame.displayName = "TabsGame";
+    
     return (
         <Tab className ="tabs-game" panes={panes} />
     )
